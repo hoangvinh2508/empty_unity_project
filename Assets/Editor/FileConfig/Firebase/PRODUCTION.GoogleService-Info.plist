@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>54836791616-a4cdd9r1mf2705hf6u9pgs6dlrr7gqqf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.54836791616-a4cdd9r1mf2705hf6u9pgs6dlrr7gqqf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>54836791616-bl5uopgufkoui0nvq9p4s6i9bt0aisfn.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyANU3-fTWzNB6gEsmu0Jo74FbaLADNnDLo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>54836791616</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.app.nandora</string>
+	<key>PROJECT_ID</key>
+	<string>nandora-production</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nandora-production.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:54836791616:ios:f60b54659c51a29d6a12a5</string>
+	<key>DATABASE_URL</key>
+	<string>https://nandora-production.firebaseio.com</string>
+</dict>
+</plist>
