@@ -25,10 +25,10 @@ public class IOSBuildPostProcessor
             pbxProject.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
 
             // framework
-            pbxProject.AddFrameworkToProject(targetGUID, "StoreKit.framework", false);
+            // pbxProject.AddFrameworkToProject(targetGUID, "StoreKit.framework", false);
             pbxProject.AddFrameworkToProject(targetGUID, "UserNotifications.framework", false);
             pbxProject.AddFrameworkToProject(targetGUID, "AuthenticationServices.framework", false);
-            pbxProject.AddFrameworkToProject(targetGUID, "StoreKit.framework", false);
+            // pbxProject.AddFrameworkToProject(targetGUID, "StoreKit.framework", false);
             pbxProject.AddFrameworkToProject(targetGUID, "MessageUI.framework", false);
 
             // Write.
