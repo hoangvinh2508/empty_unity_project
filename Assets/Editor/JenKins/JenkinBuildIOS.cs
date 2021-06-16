@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using Debug = UnityEngine.Debug;
 
 public class JenkinBuildIOS  {
-	public static string BundleId = "jp.co.gnt.toone";
-	public static string AppName = "Toone";
-	public static string AppVersion = "0.0.1";	
+	public static string BundleId = "jp.co.gnt.moff";
+	public static string AppName = "Moff";
+	public static string AppVersion = "1.0";	
 	public static string AppBuildPath = "JenKinsBuild/ios";
 	public static string PrivateParam = "-define:LOGGER;LOGGER_FILE;LOGGER_SYNC_FILE;LOGGER_DOWNLOAD_FILE;";
-	public static string BUILDVERSION = "0.0.1";
+	public static string BUILDVERSION = "1.0";
     private static string timePull = "00:00";
     private static string buildNumber = "0000";
-	public static BuildOptions AppBuildOptions = BuildOptions.None;
+	public static BuildOptions AppBuildOptions = BuildOptions.SymlinkLibraries;
 
 	public static void init(){
 		AssetDatabase.Refresh ();
@@ -24,7 +24,7 @@ public class JenkinBuildIOS  {
 		PlayerSettings.iOS.buildNumber = BUILDVERSION;
 		PlayerSettings.applicationIdentifier = BundleId;
 		PlayerSettings.productName = AppName;
-        //PlayerSettings.iOS.appleEnableAutomaticSigning = false;
+        PlayerSettings.iOS.appleEnableAutomaticSigning = false;
         PlayerSettings.SplashScreen.showUnityLogo = false;
     }
 	
@@ -95,7 +95,7 @@ public class JenkinBuildIOS  {
 		List<string> scenePaths = new List<string>();		
 		foreach (EditorBuildSettingsScene e in EditorBuildSettings.scenes) {
 			if (e.enabled)
-			scenePaths.Add(e.path);
+				scenePaths.Add(e.path);
 
 		}
 		var errorStr = BuildPipeline.BuildPlayer(scenePaths.ToArray(), fullpath, BuildTarget.iOS, AppBuildOptions);
