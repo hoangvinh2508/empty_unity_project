@@ -1,4 +1,4 @@
-﻿#if UNITY_IOS
+﻿// #if UNITY_IOS
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -47,4 +47,4 @@ namespace Editor.CocoaPods
         }
     }
 }
-#endif
+// #endif
