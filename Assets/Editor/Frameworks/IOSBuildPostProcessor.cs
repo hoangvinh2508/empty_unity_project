@@ -22,7 +22,7 @@ public class IOSBuildPostProcessor
 #if UNITY_2019_3_OR_NEWER
             string targetGUID = pbxProject.GetUnityFrameworkTargetGuid();
 #else
-            string targetGuid = pbxProject.TargetGuidByName(PBXProject.GetUnityTargetName());
+            string targetGUID = pbxProject.TargetGuidByName(PBXProject.GetUnityTargetName());
 #endif
 
             pbxProject.SetBuildProperty(targetGUID, "ENABLE_BITCODE", "NO");
