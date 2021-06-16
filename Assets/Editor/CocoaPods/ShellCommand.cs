@@ -1,4 +1,4 @@
-﻿#if UNITY_IOS
+﻿// #if UNITY_IOS
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -48,4 +48,4 @@ namespace Editor.CocoaPods
     }
 }
 
-#endif
+// #endif
