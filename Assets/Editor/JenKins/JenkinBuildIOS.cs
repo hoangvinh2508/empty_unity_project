@@ -4,14 +4,11 @@ using UnityEditor;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Facebook.Unity.Settings;
 using Debug = UnityEngine.Debug;
 
 public class JenkinBuildIOS  {
-	private const string RspFile = "csc.rsp";
-	public static string BundleId = "com.gnt.ludo.dev";
-	public static string AppName = "Ludo";
+	public static string BundleId = "jp.co.gnt.toone";
+	public static string AppName = "Toone";
 	public static string AppVersion = "0.0.1";	
 	public static string AppBuildPath = "JenKinsBuild/ios";
 	public static string PrivateParam = "-define:LOGGER;LOGGER_FILE;LOGGER_SYNC_FILE;LOGGER_DOWNLOAD_FILE;";
@@ -27,27 +24,10 @@ public class JenkinBuildIOS  {
 		PlayerSettings.iOS.buildNumber = BUILDVERSION;
 		PlayerSettings.applicationIdentifier = BundleId;
 		PlayerSettings.productName = AppName;
-        PlayerSettings.iOS.appleEnableAutomaticSigning = false;
+        //PlayerSettings.iOS.appleEnableAutomaticSigning = false;
         PlayerSettings.SplashScreen.showUnityLogo = false;
-        AddFacebookConfig();
     }
 	
-	private static void AddFacebookConfig()
-	{
-		switch(GlobalDefinePopup.ServerSetting)
-		{
-			case "TEST":
-				FacebookSettings.SelectedAppIndex = 1;
-				break;
-			case "PRODUCT":
-				FacebookSettings.SelectedAppIndex = 2;
-				break;
-			default:
-				FacebookSettings.SelectedAppIndex = 0;
-				break;
-		}
-		Debug.Log("LoginSocial FacebookId : " + FacebookSettings.SelectedAppIndex);
-	}
 
     private static void WriteVersionToResouce(string text)
     {
@@ -66,7 +46,7 @@ public class JenkinBuildIOS  {
         timePull = CommandLineReader.GetCustomArgument("TIME_PULL");
         buildNumber = CommandLineReader.GetCustomArgument("BUILD_NUMBER");
 
-        WriteVersionToResouce(buildNumber + "#" + timePull);
+        //WriteVersionToResouce(buildNumber + "#" + timePull);
 
 		string buildOption = CommandLineReader.GetCustomArgument ("BUILDOPTIONS");
 		//string ENABLE_CODE_SIGN_ENTITLEMENTS = CommandLineReader.GetCustomArgument ("CODE_SIGN_ENTITLEMENTS");
@@ -87,19 +67,9 @@ public class JenkinBuildIOS  {
 			}
 		}
 
-        // tien.nt: for product
-        var is_product = CommandLineReader.GetCustomArgument("PRODUCTION");
-        if (!string.IsNullOrEmpty(is_product))
-        {
-            if (is_product == "TRUE")
-            {
-                OverwriteFileConfigByProduction();
-            }
-        }
-
-        CleanResources();
-		SavePrivateParam ();
+		CleanResources();
 	}
+	
 	static void IOSBuild (){
 		init ();
 		try {
@@ -114,11 +84,11 @@ public class JenkinBuildIOS  {
 			Debug.LogWarning(ex.Message);
 		}
 	}
+	
 	static bool BuildPlayer()	{
 		EditorUserBuildSettings.SwitchActiveBuildTarget (BuildTarget.iOS);
 		string fullpath = System.IO.Path.GetFullPath(AppBuildPath);
 		if (Directory.Exists (fullpath)) {
-			Logger.Log("Unity Build ==> Delete current output Xcode :" + fullpath);
 			Directory.Delete (fullpath, true);
 		}
 		Directory.CreateDirectory(fullpath);
@@ -129,7 +99,7 @@ public class JenkinBuildIOS  {
 
 		}
 		var errorStr = BuildPipeline.BuildPlayer(scenePaths.ToArray(), fullpath, BuildTarget.iOS, AppBuildOptions);
-	
+		Debug.LogError(errorStr);
 		//FrameworkPostProcessor.OnPostProcessBuild (BuildTarget.iOS, fullpath);
 		return (errorStr == null);
 	}
@@ -137,52 +107,6 @@ public class JenkinBuildIOS  {
 	public static void CleanResources () {
 		
 	}
-
-    public static void OverwriteFileConfigByProduction()
-    {
-        string path = Application.dataPath + "/Editor/FileConfig/Firebase/PRODUCTION.GoogleService-Info.plist";
-        if (!File.Exists(path))
-        {
-            Debug.LogError(" Cannot found file config: " + path);
-            return;
-        }
-
-        string old_path = Application.dataPath + "/GoogleService-Info.plist";
-        if (!File.Exists(path))
-        {
-            Debug.LogError(" Cannot found old file config: " + old_path);
-            return;
-        }
-
-        File.WriteAllText(old_path, File.ReadAllText(path));
-    }
-
-    //[MenuItem( "Tools/SavePrivateParam" )]
-    public static void SavePrivateParam(){
-        var smcsFile = Path.Combine(Application.dataPath, RspFile);
-		Debug.Log ("Did write gmcs " + PrivateParam);
-		File.WriteAllText (smcsFile, PrivateParam);
-        
-	    if (PrivateParam.Contains("TESTVN"))
-	    {
-		    GlobalDefinePopup.ServerSetting = "TESTVN";
-	    } 
-	    else if (PrivateParam.Contains("TEST"))
-	    {
-		    GlobalDefinePopup.ServerSetting = "TEST";
-	    }
-	    else if(PrivateParam.Contains("PRODUCT"))
-	    {
-		    GlobalDefinePopup.ServerSetting = "PRODUCT";
-	    }
-	    else //DEV
-	    {
-		    GlobalDefinePopup.ServerSetting = "DEV";
-	    }
-	    
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
 
 	[MenuItem ("Window/IOSBuildVersion")]
 	static void IOSBuildVersion (){
